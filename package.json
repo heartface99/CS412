@@ -1,0 +1,12 @@
+{
+	"name": "CS412",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"test": "mocha"
+	},
+	"dependencies": {
+		"chai": "^4.2.0",
+		"mocha": "^8.1.3"
+	}
+}
