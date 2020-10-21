@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  if getResponse
+    h1 #{getResponse}
+
+  if putResponse
+    h2 original string is #{putResponse.original}
+    h2 string length is #{putResponse.length}
