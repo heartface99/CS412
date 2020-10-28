@@ -11,22 +11,33 @@ router.get('/', (req, res, next) => {
 });
 
 
+/* Returns the gif mp4 url */
+const getGiphy = (keyword) => {
+	return new Promise(function(resolve, reject) {
+    	giphy.search(keyword).then(function (res) {
+    		if (res.data.length > 0 && res.data[0].images !== null) {
+    			resolve(res.data[0].images.looping.mp4);
+    		}
+    		else {
+    			reject('results are null');
+    		}
+		});
+    });
+}
+
 /* POST method that returns a GIF based on user input */
 router.post('/', (req, res, next) => {
-	function getGiphy() {
-        return new Promise(function(resolve, reject) {
-        	giphy.search(req.body.keyword).then(function (apiRes, err) {
-        		if (err) {
-        			reject(err);
-        		} else {
-				    res.render('giphyResults', { src: apiRes.data[0].images.looping.mp4 });
-				}
-			});
-        });
-    }
-    getGiphy().then(function(data) {
-        next();
-    });
+	getGiphy(req.body.keyword)
+		.then(function(data) {
+			res.render('giphyResults', { src: data });
+			next();
+		})
+		.catch(error => {
+			console.log(`Caught an error: ${error.message}`);
+		})
+		.finally(_ => {
+			console.log(`Done!`);
+		});
 });
 
 
