@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
-// TODO put key somewhere else
-const giphy = require('giphy-api')("XVeN6owkKJtvJhpl3WcfftFVJHrii5Tf");
+const config = require('../config.json');
+const giphy = require('giphy-api')(config.GIPHY_API_KEY);
 
 
 /* GET method that renders the default form to search for GIF*/
@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 });
 
 
-/* POST method that returns GIF based on user input */
+/* POST method that returns a GIF based on user input */
 router.post('/', (req, res, next) => {
 	function getGiphy() {
         return new Promise(function(resolve, reject) {
