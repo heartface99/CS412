@@ -1,0 +1,14 @@
+<div>
+<ul *ngIf="show">
+	<ul *ngFor="let gif of gifs">
+	  <video width="420" height="340" loop autoplay>
+	  <source *ngIf="gif" src="{{gif.url}}" type="video/mp4">
+	  </video>
+	</ul>
+</ul>
+</div>
+
+
+<div>
+  <input (click)="showGifs()" type="button" value="{{buttonMessage}}">
+</div>
