@@ -15,16 +15,18 @@ export class ParentComponent implements OnInit {
   videoUrls: string[] = [];
   cached: string = '';
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   searchGif(keyword: string) {
-  	this.videoUrls = []; // to refresh after every search
+    // to refresh after every search
+  	this.videoUrls = [];
+    this.cached = '';
+
   	this.giphyService.search(keyword).subscribe(
   		response => {
-        if (response.cached == true) {
+        if (response.cached && response.gifData.data.length) {
           this.cached = 'This result is from cache on the backend!'; 
-        } else { 
+        } else if (!response.cached && response.gifData.data.length) {
           this.cached = 'From a third-party API call!';
         }
 
@@ -32,8 +34,7 @@ export class ParentComponent implements OnInit {
   				this.videoUrls.push(d['images']['original_mp4']['mp4']);
   			}
   		},
-  		err => console.error("ERROR " + err),
-  		() => {}
+  		err => console.error("ERROR " + err)
   	);
   }
 }
