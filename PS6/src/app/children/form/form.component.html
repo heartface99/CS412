@@ -1,0 +1,18 @@
+ <div> Search for GIF by keyword: 
+ 	<input id="searchGif" name="searchGif" type="text" required minlength="2"
+ 		[(ngModel)]="keyword" #searchGif="ngModel">
+ 	 <button  *ngIf="searchGif.errors" disabled>Query</button>
+ 	 <button *ngIf="!searchGif.errors" (click)="query()">Query</button>
+</div>
+
+<!--code refactored from angular website -->
+<div *ngIf="searchGif.invalid && (searchGif.dirty || searchGif.touched)"
+     class="alert alert-danger">
+
+  <div *ngIf="searchGif.errors && searchGif.errors.required">
+    Name is required.
+  </div>
+  <div *ngIf="searchGif.errors && searchGif.errors.minlength">
+    Name must be at least 2 characters long.
+  </div>
+</div>
